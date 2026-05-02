@@ -3,3 +3,15 @@
 	name = Fen4
 [alias]
 	graph = log --all --graph --decorate --oneline
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+# Per-machine overrides: credential helpers, local user info, etc.
+# Create ~/.gitconfig.local with your machine-specific settings.
+# Example:
+#   [credential "https://github.com"]
+#       helper = !/usr/bin/gh auth git-credential
+[include]
+	path = ~/.gitconfig.local
