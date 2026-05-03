@@ -26,6 +26,7 @@ alias vim=nvim
 alias python=python3
 alias py=python3
 alias pip=pip3
+alias js="yazi"
 
 # Use vi mode in bash
 set -o vi

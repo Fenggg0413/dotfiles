@@ -1,0 +1,45 @@
+[manager]
+show_hidden = false
+sort_by = "alphabetical"
+sort_sensitive = false
+sort_reverse = false
+sort_dir_first = true
+linemode = "none"
+show_symlink = true
+
+[preview]
+tab_size = 2
+max_width = 800
+max_height = 600
+cache_dir = ""
+
+[opener]
+edit = [
+  { run = 'nvim "$@"', block = true, for = "unix" },
+]
+play = [
+  { run = 'open "$@"', orphan = true, for = "macos" },
+  { run = 'xdg-open "$@"', orphan = true, for = "linux" },
+]
+
+[open]
+rules = [
+  { mime = "image/*", use = [ "open", "reveal" ] },
+  { mime = "video/*", use = [ "open", "play" ] },
+  { mime = "audio/*", use = [ "open", "play" ] },
+  { mime = "application/pdf", use = [ "open", "reveal" ] },
+  { name = "*.zip", use = [ "open", "reveal" ] },
+  { name = "*.tar*", use = [ "open", "reveal" ] },
+  { name = "*.rar", use = [ "open", "reveal" ] },
+  { name = "*.7z", use = [ "open", "reveal" ] },
+  { name = "*.json", use = [ "edit", "reveal" ] },
+  { name = "*.toml", use = [ "edit", "reveal" ] },
+  { name = "*.yaml", use = [ "edit", "reveal" ] },
+  { name = "*.yml", use = [ "edit", "reveal" ] },
+  { name = "*.md", use = [ "edit", "reveal" ] },
+]
+
+[tasks]
+micro_workers = 5
+macro_workers = 10
+bizarre_retry = 2

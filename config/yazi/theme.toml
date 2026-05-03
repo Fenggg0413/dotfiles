@@ -1,0 +1,67 @@
+# Yazi theme — catppuccin mocha inspired
+
+[manager]
+cwd = { fg = "#a6e3a1" }
+hovered = { fg = "#1e1e2e", bg = "#cba6f7" }
+preview_hovered = { underline = true }
+find_keyword = { fg = "#f9e2af", bold = true }
+find_position = { fg = "#f38ba8", bold = true }
+marker_selected = { fg = "#1e1e2e", bg = "#a6e3a1" }
+marker_copied = { fg = "#1e1e2e", bg = "#89b4fa" }
+marker_cut = { fg = "#1e1e2e", bg = "#f38ba8" }
+tab_active = { fg = "#1e1e2e", bg = "#89b4fa" }
+tab_inactive = { fg = "#6c7086", bg = "#313244" }
+tab_width = 1
+border_symbol = "│"
+border_style = { fg = "#585b70" }
+syntect_theme = "base16-ocean.dark"
+
+[mode]
+normal_main   = { fg = "#cdd6f4", bg = "#45475a", bold = true }
+normal_alt    = { fg = "#cdd6f4", bg = "#313244", bold = true }
+select_main   = { fg = "#1e1e2e", bg = "#f9e2af", bold = true }
+select_alt    = { fg = "#1e1e2e", bg = "#f9e2af", bold = true }
+unset_main    = { fg = "#1e1e2e", bg = "#a6e3a1", bold = true }
+unset_alt     = { fg = "#1e1e2e", bg = "#a6e3a1", bold = true }
+
+[status]
+separator_open  = ""
+separator_close = ""
+separator_style = { fg = "#45475a", bg = "#45475a" }
+mode_normal  = { fg = "#11111b", bg = "#a6e3a1", bold = true }
+mode_select  = { fg = "#11111b", bg = "#f9e2af", bold = true }
+mode_unset   = { fg = "#11111b", bg = "#cba6f7", bold = true }
+progress_tip   = { fg = "#89b4fa" }
+progress_error = { fg = "#f38ba8" }
+progress_label = { fg = "#cdd6f4", bold = true }
+
+[input]
+border  = { fg = "#89b4fa" }
+title   = {}
+value   = {}
+selected = { reversed = true }
+
+[select]
+border  = { fg = "#89b4fa" }
+active  = { fg = "#f9e2af" }
+inactive  = {}
+
+[tasks]
+border  = { fg = "#89b4fa" }
+title   = {}
+hovered = { underline = true }
+
+[which]
+mask    = { bg = "#1e1e2e" }
+cand    = { fg = "#cba6f7" }
+rest    = { fg = "#6c7086" }
+desc    = { fg = "#a6e3a1" }
+separator = "   "
+separator_style = { fg = "#585b70" }
+
+[help]
+on      = { fg = "#cba6f7" }
+exec    = { fg = "#a6e3a1" }
+desc    = { fg = "#6c7086" }
+hovered = { bg = "#313244", bold = true }
+footer  = { fg = "#45475a" }

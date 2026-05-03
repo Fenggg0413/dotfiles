@@ -15,7 +15,7 @@ if [[ "$_OS" == "Darwin" ]]; then
         echo '  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'
         exit 1
     fi
-    brew install tmux neovim zsh fzf curl gh lsd
+    brew install tmux neovim zsh fzf curl gh lsd yazi
     exit 0
 fi
 
@@ -23,13 +23,13 @@ fi
 if command -v apt &>/dev/null; then
     echo "==> Debian/Ubuntu-based (apt)"
     sudo apt update
-    sudo apt install -y tmux vim zsh fzf curl
+    sudo apt install -y tmux vim zsh fzf curl yazi
     exit 0
 fi
 
 if command -v dnf &>/dev/null; then
     echo "==> Fedora/RHEL-based (dnf)"
-    sudo dnf install -y tmux vim zsh fzf curl
+    sudo dnf install -y tmux vim zsh fzf curl yazi
     exit 0
 fi
 
@@ -42,7 +42,7 @@ fi
 
 if command -v pacman &>/dev/null; then
     echo "==> Arch-based (pacman)"
-    sudo pacman -Syu --noconfirm tmux vim zsh fzf curl
+    sudo pacman -Syu --noconfirm tmux vim zsh fzf curl yazi
     exit 0
 fi
 
