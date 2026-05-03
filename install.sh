@@ -15,7 +15,7 @@ if [[ "$_OS" == "Darwin" ]]; then
         echo '  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'
         exit 1
     fi
-    brew install tmux neovim zsh fzf curl gh
+    brew install tmux neovim zsh fzf curl gh lsd
     exit 0
 fi
 

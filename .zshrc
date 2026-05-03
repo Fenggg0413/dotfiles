@@ -32,6 +32,7 @@ source $ZSH/oh-my-zsh.sh
 alias sp="export https_proxy=http://127.0.0.1:7897 http_proxy=http://127.0.0.1:7897 all_proxy=socks5://127.0.0.1:7897; echo 'Set proxy successfully'"
 alias usp="unset http_proxy; unset https_proxy; unset all_proxy; echo 'Unset proxy successfully'"
 alias tt="curl -s -o /dev/null -w '%{http_code}' www.google.com && echo ''"
+alias ls=lsd
 alias cl="clear"
 alias ec="echo $?"
 alias gs="git status"
