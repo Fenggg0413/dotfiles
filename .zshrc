@@ -33,6 +33,8 @@ alias sp="export https_proxy=http://127.0.0.1:7897 http_proxy=http://127.0.0.1:7
 alias usp="unset http_proxy; unset https_proxy; unset all_proxy; echo 'Unset proxy successfully'"
 alias tt="curl -s -o /dev/null -w '%{http_code}' www.google.com && echo ''"
 alias ls=lsd
+alias ll='lsd -la'
+alias tree='lsd --tree'
 alias cl="clear"
 alias ec="echo $?"
 alias gs="git status"
@@ -44,7 +46,15 @@ alias vim=nvim
 alias python=python3
 alias py=python3
 alias pip=pip3
-alias js="yazi"
+alias yz="yazi"
+function yy() {
+  local tmp="$(mktemp -t yazi-cwd.XXXXXX)"
+  yazi --cwd-file="$tmp"
+  if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+    cd -- "$cwd"
+  fi
+  rm -f -- "$tmp"
+}
 alias sf='npx skills find'
 
 bindkey -v

@@ -37,6 +37,8 @@ rules = [
   { name = "*.yaml", use = [ "edit", "reveal" ] },
   { name = "*.yml", use = [ "edit", "reveal" ] },
   { name = "*.md", use = [ "edit", "reveal" ] },
+  { mime = "text/*", use = [ "edit", "reveal" ] },
+  { mime = "*", use = [ "open", "reveal" ] },
 ]
 
 [tasks]
