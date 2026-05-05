@@ -60,7 +60,6 @@ symlink() {
 symlink ".zshrc"
 symlink ".bashrc"
 symlink ".vimrc"
-symlink ".tmux.conf"
 symlink ".gitconfig"
 
 # ---- 6. Set up per-machine .gitconfig.local ----
@@ -89,7 +88,14 @@ GITEOF
     fi
 fi
 
-# ---- 7. Set up ~/.config symlinks ----
+# ---- 7. Install Oh My Tmux ----
+OH_MY_TMUX_DIR="$HOME/.local/share/tmux/oh-my-tmux"
+if [[ ! -d "$OH_MY_TMUX_DIR" ]]; then
+    echo "==> Installing Oh My Tmux..."
+    git clone --single-branch https://github.com/gpakosz/.tmux.git "$OH_MY_TMUX_DIR"
+fi
+
+# ---- 8. Set up ~/.config symlinks ----
 echo "==> Creating ~/.config symlinks..."
 config_symlink() {
     local src="$DOTDIR/config/$1"
@@ -104,6 +110,10 @@ config_symlink() {
     ln -sf "$src" "$dst"
     echo "   Linked $dst → $src"
 }
+
+mkdir -p "$HOME/.config/tmux"
+ln -sf "$OH_MY_TMUX_DIR/.tmux.conf" "$HOME/.config/tmux/tmux.conf"
+echo "   Linked $HOME/.config/tmux/tmux.conf → $OH_MY_TMUX_DIR/.tmux.conf"
 
 config_symlink "git/ignore"
 config_symlink "tmux/tmux.conf.local"
