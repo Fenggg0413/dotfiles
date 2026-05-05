@@ -109,6 +109,7 @@ config_symlink() {
 config_symlink "git/ignore"
 config_symlink "tmux/tmux.conf.local"
 config_symlink "yazi"
+config_symlink "starship.toml"
 
 # ---- 8. Create .zshrc.local / .bashrc.local templates if missing ----
 [[ -f "$HOME/.zshrc.local" ]] || touch "$HOME/.zshrc.local"

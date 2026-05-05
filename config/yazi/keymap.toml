@@ -44,6 +44,10 @@ keymap = [
   { on = [ "l" ],           run = "enter",             desc = "Enter child dir" },
   { on = [ "k" ],           run = "arrow prev",        desc = "Move up" },
   { on = [ "j" ],           run = "arrow next",        desc = "Move down" },
+  { on = [ "<Left>" ],      run = "leave",             desc = "Leave parent dir" },
+  { on = [ "<Right>" ],     run = "enter",             desc = "Enter child dir" },
+  { on = [ "<Up>" ],        run = "arrow prev",        desc = "Move up" },
+  { on = [ "<Down>" ],      run = "arrow next",        desc = "Move down" },
   { on = [ "H" ],           run = "back",               desc = "Back" },
   { on = [ "L" ],           run = "forward",            desc = "Forward" },
   { on = [ "K" ],           run = "arrow -5",           desc = "Move up 5" },
@@ -83,6 +87,12 @@ keymap = [
   { on = [ "<Esc>" ],       run = "escape",             desc = "Cancel input" },
   { on = [ "<C-c>" ],       run = "close",              desc = "Cancel input" },
   { on = [ "<Enter>" ],     run = "close --submit",     desc = "Submit input" },
+  { on = [ "<Backspace>" ], run = "backspace",          desc = "Delete previous character" },
+  { on = [ "<Delete>" ],    run = "backspace --under",  desc = "Delete next character" },
+  { on = [ "<Left>" ],      run = "move -1",            desc = "Move cursor left" },
+  { on = [ "<Right>" ],     run = "move 1",             desc = "Move cursor right" },
+  { on = [ "<Home>" ],      run = "move -999",          desc = "Move to line start" },
+  { on = [ "<End>" ],       run = "move 999",           desc = "Move to line end" },
 ]
 
 [tasks]

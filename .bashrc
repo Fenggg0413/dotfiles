@@ -26,6 +26,8 @@ alias glao='git log --all --graph --decorate --oneline'
 alias mv="mv -i"
 alias vi=nvim
 alias vim=nvim
+export EDITOR=nvim
+export VISUAL=nvim
 alias python=python3
 alias py=python3
 alias pip=pip3
@@ -37,6 +39,11 @@ set -o vi
 # fzf
 if command -v fzf &>/dev/null; then
     eval "$(fzf --bash)"
+fi
+
+# zoxide
+if command -v zoxide &>/dev/null; then
+    eval "$(zoxide init bash)"
 fi
 
 # ---- macOS-specific ----

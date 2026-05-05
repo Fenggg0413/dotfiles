@@ -11,14 +11,9 @@ else
     _IS_WSL=0
 fi
 
-# ---- Oh-my-zsh instant prompt (must stay near top) ----
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
 # ---- Oh-my-zsh core ----
 export ZSH="$HOME/.oh-my-zsh"
-ZSH_THEME="powerlevel10k/powerlevel10k"
+ZSH_THEME=""
 zstyle ':omz:update' mode auto
 
 # Plugins: shared + platform-specific
@@ -43,6 +38,8 @@ alias glao='git log --all --graph --decorate --oneline'
 alias mv="mv -i"
 alias vi=nvim
 alias vim=nvim
+export EDITOR=nvim
+export VISUAL=nvim
 alias python=python3
 alias py=python3
 alias pip=pip3
@@ -68,8 +65,15 @@ if command -v fzf &>/dev/null; then
     eval "$(fzf --zsh)"
 fi
 
-# p10k prompt
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# zoxide
+if command -v zoxide &>/dev/null; then
+    eval "$(zoxide init zsh)"
+fi
+
+# starship prompt
+if command -v starship &>/dev/null; then
+    eval "$(starship init zsh)"
+fi
 
 # ---- macOS-specific ----
 if [[ "$_OS" == "Darwin" ]]; then
