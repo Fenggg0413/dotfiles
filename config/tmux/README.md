@@ -59,11 +59,15 @@ tmux_conf_new_pane_retain_current_path=true
 
 ### 3. 状态栏内容
 
-状态栏内容保持 oh-my-tmux 当前本地配置，不额外改动：
+状态栏使用紫粉渐变 Powerline 风格。普通 window 和中间空白区域使用统一深紫底色，减少与左右 Powerline 色块的割裂感：
 
 ```tmux
+tmux_conf_theme_left_separator_main=''
+tmux_conf_theme_left_separator_sub=''
+tmux_conf_theme_right_separator_main=''
+tmux_conf_theme_right_separator_sub=''
 tmux_conf_theme_status_left=" ❐ #S | ↑#{?uptime_y, #{uptime_y}y,}#{?uptime_d, #{uptime_d}d,}#{?uptime_h, #{uptime_h}h,}#{?uptime_m, #{uptime_m}m,} "
-tmux_conf_theme_status_right=" #{prefix}#{mouse}#{pairing}#{synchronized}#{?battery_status,#{battery_status},}#{?battery_bar, #{battery_bar},}#{?battery_percentage, #{battery_percentage},} , %R , %d %b | #{username}#{root} | #{hostname} "
+tmux_conf_theme_status_right=" #{prefix}#{mouse}#{pairing}#{synchronized}#{?battery_status,#{battery_status},}#{?battery_bar, #{battery_bar},}#{?battery_percentage, #{battery_percentage},} , %R | #{username}#{root}@MacBook "
 ```
 
 左侧显示：
@@ -75,8 +79,8 @@ tmux_conf_theme_status_right=" #{prefix}#{mouse}#{pairing}#{synchronized}#{?batt
 
 - prefix、mouse、pairing、synchronized 等状态指示；
 - 电池状态；
-- 时间和日期；
-- 用户名和主机名。
+- 时间；
+- 用户名、root 标记（如适用）和固定主机标签 `MacBook`。
 
 ### 4. Pane 高亮
 
