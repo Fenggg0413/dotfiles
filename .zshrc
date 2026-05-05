@@ -43,8 +43,8 @@ export VISUAL=nvim
 alias python=python3
 alias py=python3
 alias pip=pip3
-alias yz="yazi"
-function yy() {
+# alias yz="yazi"
+function yz() {
   local tmp="$(mktemp -t yazi-cwd.XXXXXX)"
   yazi --cwd-file="$tmp"
   if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then

@@ -8,27 +8,75 @@ Cross-platform dotfiles — works on **macOS**, **Linux**, and **WSL2**.
 git clone https://github.com/Fen4/dotfiles.git ~/dotfiles
 cd ~/dotfiles
 
-# Install system packages (tmux, zsh, fzf, etc.)
+# Install system packages (tmux, zsh, fzf, curl, neovim, yazi, lsd, bat, etc.)
 bash install.sh
 
-# Set up zsh, oh-my-zsh, plugins, and symlinks
+# Set up zsh, oh-my-zsh, oh-my-tmux, plugins, and symlinks
 bash init.sh
 ```
 
-After that, open a new terminal. On first launch, p10k will walk you through theme configuration.
+After that, open a new terminal. The zsh prompt is powered by Starship via `config/starship.toml`.
 
 ## What's included
 
 | File | Purpose |
 |------|---------|
-| `.zshrc` | Main zsh config (shared + per-platform) |
+| `install.sh` | Package installation across package managers (Homebrew, apt, dnf, yum, pacman, apk) |
+| `init.sh` | Bootstrap: shell change, oh-my-zsh install, zsh plugin clone, oh-my-tmux install, symlink creation |
+| `.zshrc` | Main zsh config (shared + per-platform aliases, fzf, Go proxy, p10k) |
 | `.bashrc` | Bash config for Linux/WSL2 |
 | `.vimrc` | Vim/Neovim settings |
-| `.tmux.conf` | Tmux config |
-| `.gitconfig` | Shared git settings |
-| `.p10k.zsh` | Powerlevel10k theme |
+| `.gitconfig` | Shared git settings (aliases, merge tool, etc.) |
+| `config/starship.toml` | Starship prompt config |
 | `config/git/ignore` | Global gitignore rules |
-| `config/tmux/tmux.conf.local` | Tmux theme & status bar (oh-my-tmux) |
+| `config/tmux/tmux.conf.local` | oh-my-tmux local overrides (prefix, plugins, keybindings) |
+| `config/bat/config` | Bat syntax highlighting config (TwoDark theme, syntax mappings) |
+| `config/neofetch/config.conf` | Neofetch system info display config |
+| `config/yazi/yazi.toml` | Yazi file manager config (preview, opener, file associations) |
+| `config/yazi/keymap.toml` | Yazi keybindings (vim-style, zoxide, fd integration) |
+| `config/yazi/theme.toml` | Yazi theme (Catppuccin Mocha inspired) |
+
+## Tmux
+
+Tmux is configured using [oh-my-tmux](https://github.com/gpakosz/.tmux).
+
+`init.sh` installs the upstream config to:
+
+```text
+~/.local/share/tmux/oh-my-tmux/.tmux.conf
+```
+
+and links it via the XDG path:
+
+```text
+~/.config/tmux/tmux.conf
+```
+
+This repo manages the local override:
+
+```text
+config/tmux/tmux.conf.local -> ~/.config/tmux/tmux.conf.local
+```
+
+Key local overrides:
+- Prefix: `Ctrl-a` (only prefix, `Ctrl-b` disabled)
+- Vi-mode keybindings, mouse enabled
+- Scrollback history: 65536 lines
+- Window/pane indexes start at 1
+- Escape delay set to 0
+- `Ctrl-a r` to reload config, `Ctrl-a e` to toggle sync input
+- System clipboard integration
+- Plugins: `tmux-copycat` (enhanced search/copy), `tmux-resurrect` (save/restore sessions)
+
+Full details in `config/tmux/README.md`.
+
+## Yazi
+
+Yazi is a terminal file manager with vim-style keybindings. Config includes:
+
+- **yazi.toml**: Hidden files off, alphabetical sort, directory-first; image/video/audio/pdf/archive open with system default; text/config files open in nvim; 5 micro / 10 macro workers
+- **keymap.toml**: Full vim-style navigation (`hjkl`, `gg`, `G`, `Ctrl-u/d`), zoxide integration (`z`), fd search (`s`/`S`), fzf find (`/`), visual mode (`v`/`V`), yank/paste (`y`/`p`/`x`)
+- **theme.toml**: Catppuccin Mocha inspired color scheme
 
 ## Per-machine overrides
 
@@ -42,20 +90,6 @@ Files that are **not synced** — create them on each machine for local settings
 
 `init.sh` will create empty `.local` templates automatically. The `.gitconfig.local` will be pre-filled with the correct `gh` credential helper path if `gh` is installed.
 
-## How platform detection works
-
-`.zshrc` and `.bashrc` detect the OS at startup:
-
-```zsh
-_OS="$(uname)"
-# _OS = "Darwin" → macOS
-# _OS = "Linux"  → Linux / WSL2
-```
-
-WSL2 is detected via `/proc/version` and gets Windows interop aliases (`open`, `winget`, `winhome`).
-
 ## Troubleshooting
 
-**Font issues:** Install [MesloLGS NF](https://github.com/romkatv/powerlevel10k-media) fonts and configure your terminal to use them.
-
-**p10k reconfiguration:** Run `p10k configure` in any zsh session.
+**Font issues:** Use a Nerd Font (Recommend JetBrainsMono Nerd Font) in terminal so Starship and terminal UI icons render correctly.
