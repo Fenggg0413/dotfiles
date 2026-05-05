@@ -61,7 +61,6 @@ symlink ".zshrc"
 symlink ".bashrc"
 symlink ".vimrc"
 symlink ".tmux.conf"
-symlink ".p10k.zsh"
 symlink ".gitconfig"
 
 # ---- 6. Set up per-machine .gitconfig.local ----
@@ -110,6 +109,8 @@ config_symlink "git/ignore"
 config_symlink "tmux/tmux.conf.local"
 config_symlink "yazi"
 config_symlink "starship.toml"
+config_symlink "bat/config"
+config_symlink "neofetch/config.conf"
 
 # ---- 8. Create .zshrc.local / .bashrc.local templates if missing ----
 [[ -f "$HOME/.zshrc.local" ]] || touch "$HOME/.zshrc.local"
