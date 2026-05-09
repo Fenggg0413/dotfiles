@@ -100,7 +100,7 @@ if [[ "$_OS" == "Darwin" ]]; then
         compinit
     fi
 
-    alias typora='open -a Typora'
+    alias ty='open -a Typora'
     alias disablesleep='sudo pmset -a disablesleep 1'
     alias ablesleep='sudo pmset -a disablesleep 0'
 

@@ -140,6 +140,11 @@ config_symlink "starship.toml"
 config_symlink "bat/config"
 config_symlink "fastfetch/config.jsonc"
 
+# Ghostty is a macOS GUI terminal — skip on Linux/WSL2 servers where it's never installed.
+if [[ "$_OS" == "Darwin" ]]; then
+    config_symlink "ghostty"
+fi
+
 # Clean up stale ~/.config/neofetch symlink (config moved to fastfetch).
 if [[ -L "$HOME/.config/neofetch/config.conf" ]] && [[ ! -e "$HOME/.config/neofetch/config.conf" ]]; then
     rm "$HOME/.config/neofetch/config.conf"
