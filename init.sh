@@ -21,6 +21,20 @@ if [[ "$SHELL" != *zsh* ]]; then
     chsh -s "$ZSH_PATH"
 fi
 
+# ---- 1b. macOS Apple Silicon: persist brew shellenv for future shells ----
+# install.sh handles its own session via shellenv. Future zsh/bash shells need
+# this in ~/.zprofile so /opt/homebrew/bin is on PATH from login.
+if [[ "$_OS" == "Darwin" ]] && [[ -x /opt/homebrew/bin/brew ]]; then
+    if ! grep -q "/opt/homebrew/bin/brew shellenv" "$HOME/.zprofile" 2>/dev/null; then
+        {
+            echo ''
+            echo '# Homebrew (Apple Silicon)'
+            echo 'eval "$(/opt/homebrew/bin/brew shellenv)"'
+        } >> "$HOME/.zprofile"
+        echo "==> Added Homebrew shellenv to ~/.zprofile"
+    fi
+fi
+
 # ---- 2. Install Oh My Zsh ----
 if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
     echo "==> Installing Oh My Zsh..."
@@ -120,7 +134,14 @@ config_symlink "tmux/tmux.conf.local"
 config_symlink "yazi"
 config_symlink "starship.toml"
 config_symlink "bat/config"
-config_symlink "neofetch/config.conf"
+config_symlink "fastfetch/config.jsonc"
+
+# Clean up stale ~/.config/neofetch symlink (config moved to fastfetch).
+if [[ -L "$HOME/.config/neofetch/config.conf" ]] && [[ ! -e "$HOME/.config/neofetch/config.conf" ]]; then
+    rm "$HOME/.config/neofetch/config.conf"
+    rmdir "$HOME/.config/neofetch" 2>/dev/null || true
+    echo "   Removed stale ~/.config/neofetch symlink"
+fi
 
 # ---- 9. Bootstrap Claude Code config (~/.claude/) ----
 # One-shot copy (not symlink) — repo holds the "factory template",
@@ -148,7 +169,20 @@ claude_bootstrap "statusline-command.sh"
 claude_bootstrap "themes"
 
 # ---- 10. Create .zshrc.local / .bashrc.local templates if missing ----
-[[ -f "$HOME/.zshrc.local" ]] || touch "$HOME/.zshrc.local"
+if [[ ! -s "$HOME/.zshrc.local" ]]; then
+    # -s: file exists AND has size > 0. Treat empty file the same as missing,
+    # since empty files were created by a prior `touch ~/.zshrc.local`.
+    cat > "$HOME/.zshrc.local" <<'ZLOCAL'
+# Per-machine zsh overrides — not synced to the dotfiles repo.
+# Use this file for absolute paths, private aliases, and host-specific env.
+#
+# Examples (uncomment and adjust paths if applicable on this machine):
+# alias mysql=/usr/local/mysql-8.4.8-macos15-arm64/bin/mysql
+# export M2_HOME=/usr/local/apache-maven-3.9.9
+# [[ -d "$M2_HOME" ]] && export PATH="$PATH:$M2_HOME/bin"
+ZLOCAL
+    echo "   Wrote template to ~/.zshrc.local"
+fi
 [[ -f "$HOME/.bashrc.local" ]] || touch "$HOME/.bashrc.local"
 
 echo ""

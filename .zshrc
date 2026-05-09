@@ -11,6 +11,17 @@ else
     _IS_WSL=0
 fi
 
+# ---- User-local bin paths (must come before oh-my-zsh / `command -v` checks) ----
+# install.sh may place tools at ~/.local/bin (starship), ~/.cargo/bin (yazi),
+# or ~/.bun/bin (bun) — make sure these are on PATH from login shells.
+[[ -d "$HOME/.local/bin" ]] && [[ ":$PATH:" != *":$HOME/.local/bin:"* ]] && export PATH="$HOME/.local/bin:$PATH"
+[[ -d "$HOME/.cargo/bin" ]] && [[ ":$PATH:" != *":$HOME/.cargo/bin:"* ]] && export PATH="$HOME/.cargo/bin:$PATH"
+if [[ -d "$HOME/.bun/bin" ]]; then
+    export BUN_INSTALL="$HOME/.bun"
+    [[ ":$PATH:" != *":$HOME/.bun/bin:"* ]] && export PATH="$BUN_INSTALL/bin:$PATH"
+    [[ -s "$HOME/.bun/_bun" ]] && source "$HOME/.bun/_bun"
+fi
+
 # ---- Oh-my-zsh core ----
 export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME=""
@@ -27,31 +38,36 @@ source $ZSH/oh-my-zsh.sh
 alias sp="export https_proxy=http://127.0.0.1:7897 http_proxy=http://127.0.0.1:7897 all_proxy=socks5://127.0.0.1:7897; echo 'Set proxy successfully'"
 alias usp="unset http_proxy; unset https_proxy; unset all_proxy; echo 'Unset proxy successfully'"
 alias tt="curl -s -o /dev/null -w '%{http_code}' www.google.com && echo ''"
-alias ls=lsd
-alias ll='lsd -la'
-alias tree='lsd --tree'
+if command -v lsd >/dev/null 2>&1; then
+    alias ls=lsd
+    alias ll='lsd -la'
+    alias tree='lsd --tree'
+fi
 alias cl="clear"
 alias ec="echo $?"
 alias gs="git status"
 alias gla='git log --all --graph --decorate'
 alias glao='git log --all --graph --decorate --oneline'
 alias mv="mv -i"
-alias vi=nvim
-alias vim=nvim
-export EDITOR=nvim
-export VISUAL=nvim
+if command -v nvim >/dev/null 2>&1; then
+    alias vi=nvim
+    alias vim=nvim
+    export EDITOR=nvim
+    export VISUAL=nvim
+fi
 alias python=python3
 alias py=python3
 alias pip=pip3
-# alias yz="yazi"
-function yz() {
-  local tmp="$(mktemp -t yazi-cwd.XXXXXX)"
-  yazi --cwd-file="$tmp"
-  if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-    cd -- "$cwd"
-  fi
-  rm -f -- "$tmp"
-}
+if command -v yazi >/dev/null 2>&1; then
+  function yz() {
+    local tmp="$(mktemp -t yazi-cwd.XXXXXX)"
+    yazi --cwd-file="$tmp"
+    if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+      cd -- "$cwd"
+    fi
+    rm -f -- "$tmp"
+  }
+fi
 alias sf='npx skills find'
 
 bindkey -v
@@ -87,9 +103,6 @@ if [[ "$_OS" == "Darwin" ]]; then
     alias typora='open -a Typora'
     alias disablesleep='sudo pmset -a disablesleep 1'
     alias ablesleep='sudo pmset -a disablesleep 0'
-    alias mysql=/usr/local/mysql-8.4.8-macos15-arm64/bin/mysql
-    export M2_HOME=/usr/local/apache-maven-3.9.9
-    export PATH="$PATH:$M2_HOME/bin"
 
     # broot
     [[ -f "$HOME/.config/broot/launcher/bash/br" ]] && source "$HOME/.config/broot/launcher/bash/br"
@@ -99,11 +112,6 @@ if [[ "$_OS" == "Darwin" ]]; then
 
     # kiro shell integration
     [[ "$TERM_PROGRAM" == "kiro" ]] && command -v kiro &>/dev/null && . "$(kiro --locate-shell-integration-path zsh)"
-
-    # bun
-    export BUN_INSTALL="$HOME/.bun"
-    export PATH="$BUN_INSTALL/bin:$PATH"
-    [[ -s "$HOME/.bun/_bun" ]] && source "$HOME/.bun/_bun"
 
     # clash-proxy (if script exists)
     if [[ -f "$HOME/Project/script/clash-proxy.sh" ]]; then
@@ -125,6 +133,10 @@ if [[ "$_OS" == "Linux" ]]; then
 
     # Linux: xdg-open as equivalent of macOS 'open'
     alias o="xdg-open"
+
+    # apt ships bat as `batcat` and fd-find as `fdfind` — alias to expected names
+    command -v batcat >/dev/null 2>&1 && ! command -v bat >/dev/null 2>&1 && alias bat=batcat
+    command -v fdfind >/dev/null 2>&1 && ! command -v fd >/dev/null 2>&1 && alias fd=fdfind
 
     # ssh agent (common on Linux desktops)
     # export SSH_ASKPASS="/usr/bin/ksshaskpass"

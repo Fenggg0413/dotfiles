@@ -31,7 +31,8 @@ After that, open a new terminal. The zsh prompt is powered by Starship via `conf
 | `config/git/ignore` | Global gitignore rules |
 | `config/tmux/tmux.conf.local` | oh-my-tmux local overrides (prefix, plugins, keybindings) |
 | `config/bat/config` | Bat syntax highlighting config (TwoDark theme, syntax mappings) |
-| `config/neofetch/config.conf` | Neofetch system info display config |
+| `config/fastfetch/config.jsonc` | Fastfetch system info display config (replaces deprecated neofetch) |
+| `config/claude/` | Claude Code bootstrap snapshot — copied to `~/.claude/` on first run, no ongoing sync |
 | `config/yazi/yazi.toml` | Yazi file manager config (preview, opener, file associations) |
 | `config/yazi/keymap.toml` | Yazi keybindings (vim-style, zoxide, fd integration) |
 | `config/yazi/theme.toml` | Yazi theme (Catppuccin Mocha inspired) |
@@ -93,3 +94,9 @@ Files that are **not synced** — create them on each machine for local settings
 ## Troubleshooting
 
 **Font issues:** Use a Nerd Font (Recommend JetBrainsMono Nerd Font) in terminal so Starship and terminal UI icons render correctly.
+
+**Apple Silicon Macs:** After installing Homebrew, `brew` is at `/opt/homebrew/bin/brew` but not on PATH yet. `install.sh` and `init.sh` both detect this case automatically — `init.sh` also appends `eval "$(/opt/homebrew/bin/brew shellenv)"` to `~/.zprofile` so future shells pick it up. If `bash install.sh` complains brew isn't found, run that `eval` once by hand and try again.
+
+**Linux: missing optional packages.** `install.sh` reports any optional packages that didn't install at the end of its run. Most commonly `yazi`, `starship`, and `bun` aren't in distro repos and are installed from upstream (cargo / official scripts). If those upstream installs fail (no network, etc.), follow the install instructions on each tool's website.
+
+**Linux: bat / fd not found?** On Debian/Ubuntu the binaries are named `batcat` and `fdfind`. The dotfiles `.zshrc`/`.bashrc` already alias them to `bat` and `fd` for you.
