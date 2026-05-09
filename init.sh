@@ -198,6 +198,7 @@ mkdir -p "$HOME/.claude"
 claude_bootstrap "settings.json"
 claude_bootstrap "statusline-command.sh"
 claude_bootstrap "themes"
+claude_symlink "CLAUDE.md"
 claude_symlink "plugins/claude-hud/config.json"
 
 # ---- 10. Create .zshrc.local / .bashrc.local templates if missing ----

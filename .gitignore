@@ -4,6 +4,7 @@
 logs/
 *.bak
 CLAUDE.md
+!config/claude/CLAUDE.md
 .claude/
 docs/
 AGENTS.md
