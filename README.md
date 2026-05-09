@@ -38,6 +38,10 @@ After that, open a new terminal. The zsh prompt is powered by Starship via `conf
 | `config/yazi/keymap.toml` | Yazi keybindings (vim-style, zoxide, fd integration) |
 | `config/yazi/theme.toml` | Yazi theme (Catppuccin Mocha inspired) |
 
+## Neovim
+
+The Neovim config lives in its own repo ([Fenggg0413/kickstart.nvim](https://github.com/Fenggg0413/kickstart.nvim), a fork of nvim-lua/kickstart.nvim). `init.sh` clones it to `~/.config/nvim/` on first run; the dotfiles repo itself does not vendor the nvim config. Edit and version it independently inside `~/.config/nvim/`.
+
 ## Tmux
 
 Tmux is configured using [oh-my-tmux](https://github.com/gpakosz/.tmux).

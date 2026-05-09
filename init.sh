@@ -109,6 +109,15 @@ if [[ ! -d "$OH_MY_TMUX_DIR" ]]; then
     git clone --single-branch https://github.com/gpakosz/.tmux.git "$OH_MY_TMUX_DIR"
 fi
 
+# ---- 7b. Clone Neovim config (Fen4's kickstart.nvim fork) ----
+# Lives in its own repo so nvim history stays separate from dotfiles.
+# Uses HTTPS so a fresh machine without SSH keys can still bootstrap.
+NVIM_CONFIG_DIR="$HOME/.config/nvim"
+if [[ ! -d "$NVIM_CONFIG_DIR" ]]; then
+    echo "==> Cloning Neovim config..."
+    git clone https://github.com/Fenggg0413/kickstart.nvim.git "$NVIM_CONFIG_DIR"
+fi
+
 # ---- 8. Set up ~/.config symlinks ----
 echo "==> Creating ~/.config symlinks..."
 config_symlink() {
