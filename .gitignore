@@ -5,4 +5,5 @@ logs/
 *.bak
 CLAUDE.md
 .claude/
+docs/
 AGENTS.md

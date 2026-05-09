@@ -122,7 +122,32 @@ config_symlink "starship.toml"
 config_symlink "bat/config"
 config_symlink "neofetch/config.conf"
 
-# ---- 8. Create .zshrc.local / .bashrc.local templates if missing ----
+# ---- 9. Bootstrap Claude Code config (~/.claude/) ----
+# One-shot copy (not symlink) — repo holds the "factory template",
+# each machine evolves its own ~/.claude/ independently afterwards.
+echo "==> Bootstrapping Claude Code config..."
+claude_bootstrap() {
+    local rel="$1"
+    local src="$DOTDIR/config/claude/$rel"
+    local dst="$HOME/.claude/$rel"
+    if [[ ! -e "$src" ]]; then
+        return
+    fi
+    if [[ -e "$dst" ]]; then
+        echo "   Skipped (exists): ~/.claude/$rel"
+        return
+    fi
+    mkdir -p "$(dirname "$dst")"
+    cp -R "$src" "$dst"
+    echo "   Copied ~/.claude/$rel"
+}
+
+mkdir -p "$HOME/.claude"
+claude_bootstrap "settings.json"
+claude_bootstrap "statusline-command.sh"
+claude_bootstrap "themes"
+
+# ---- 10. Create .zshrc.local / .bashrc.local templates if missing ----
 [[ -f "$HOME/.zshrc.local" ]] || touch "$HOME/.zshrc.local"
 [[ -f "$HOME/.bashrc.local" ]] || touch "$HOME/.bashrc.local"
 

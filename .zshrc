@@ -85,6 +85,8 @@ if [[ "$_OS" == "Darwin" ]]; then
     fi
 
     alias typora='open -a Typora'
+    alias disablesleep='sudo pmset -a disablesleep 1'
+    alias ablesleep='sudo pmset -a disablesleep 0'
     alias mysql=/usr/local/mysql-8.4.8-macos15-arm64/bin/mysql
     export M2_HOME=/usr/local/apache-maven-3.9.9
     export PATH="$PATH:$M2_HOME/bin"

@@ -1,0 +1,115 @@
+{
+  "skillListingBudgetFraction": 0.03,
+  "env": {
+    "CLAUDE_CODE_NO_FLICKER": "1"
+  },
+  "includeCoAuthoredBy": false,
+  "permissions": {
+    "allow": [],
+    "deny": [],
+    "defaultMode": "default"
+  },
+  "model": "opus",
+  "hooks": {
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "osascript -e 'display notification \"Claude 已完成本轮回复\" with title \"Claude Code\" sound name \"Glass\"'"
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "osascript -e 'display notification \"Claude 等待输入或权限批准\" with title \"Claude Code\" sound name \"Ping\"'"
+          }
+        ]
+      }
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "bash -c 'cols=$(stty size </dev/tty 2>/dev/null | awk '\\''{print $2}'\\''); export COLUMNS=$(( ${cols:-120} > 4 ? ${cols:-120} - 4 : 1 )); plugin_dir=$(ls -d \"${CLAUDE_CONFIG_DIR:-$HOME/.claude}\"/plugins/cache/*/claude-hud/*/ 2>/dev/null | awk -F/ '\\''{ print $(NF-1) \"\\t\" $(0) }'\\'' | grep -E '\\''^[0-9]+\\.[0-9]+\\.[0-9]+\\t'\\'' | sort -t. -k1,1n -k2,2n -k3,3n -k4,4n | tail -1 | cut -f2-); exec bun --env-file /dev/null \"${plugin_dir}src/index.ts\"'"
+  },
+  "enabledPlugins": {
+    "greptile@claude-plugins-official": false,
+    "prompts.chat@prompts.chat": false,
+    "notion-workspace-plugin@notion-plugin-marketplace": true,
+    "superpowers@claude-plugins-official": true,
+    "skill-creator@claude-plugins-official": true,
+    "code-review@claude-plugins-official": true,
+    "chrome-devtools-mcp@claude-plugins-official": true,
+    "security-guidance@claude-plugins-official": true,
+    "context7@claude-plugins-official": true,
+    "frontend-design@claude-plugins-official": true,
+    "code-simplifier@claude-plugins-official": true,
+    "claude-md-management@claude-plugins-official": true,
+    "ralph-loop@claude-plugins-official": true,
+    "commit-commands@claude-plugins-official": true,
+    "document-skills@anthropic-agent-skills": true,
+    "claude-code-setup@claude-plugins-official": true,
+    "playground@claude-plugins-official": true,
+    "codex@openai-codex": false,
+    "claude-hud@claude-hud": true
+  },
+  "extraKnownMarketplaces": {
+    "prompts.chat": {
+      "source": {
+        "source": "github",
+        "repo": "f/prompts.chat"
+      }
+    },
+    "notion-plugin-marketplace": {
+      "source": {
+        "source": "github",
+        "repo": "makenotion/claude-code-notion-plugin"
+      }
+    },
+    "chrome-devtools-plugins": {
+      "source": {
+        "source": "github",
+        "repo": "ChromeDevTools/chrome-devtools-mcp"
+      }
+    },
+    "anthropic-agent-skills": {
+      "source": {
+        "source": "github",
+        "repo": "anthropics/skills"
+      }
+    },
+    "knowledge-work-plugins": {
+      "source": {
+        "source": "github",
+        "repo": "anthropics/knowledge-work-plugins"
+      }
+    },
+    "claude-hud": {
+      "source": {
+        "source": "github",
+        "repo": "jarrodwatts/claude-hud"
+      }
+    },
+    "openai-codex": {
+      "source": {
+        "source": "github",
+        "repo": "openai/codex-plugin-cc"
+      }
+    }
+  },
+  "language": "中文",
+  "alwaysThinkingEnabled": true,
+  "effortLevel": "xhigh",
+  "theme": "dark-ansi",
+  "editorMode": "normal",
+  "verbose": false,
+  "preferredNotifChannel": "auto",
+  "autoCompactEnabled": true,
+  "agentPushNotifEnabled": true
+}
