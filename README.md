@@ -40,7 +40,7 @@ After that, open a new terminal. The zsh prompt is powered by Starship via `conf
 
 ## Neovim
 
-The Neovim config lives in its own repo ([Fenggg0413/kickstart.nvim](https://github.com/Fenggg0413/kickstart.nvim), a fork of nvim-lua/kickstart.nvim). `init.sh` clones it to `~/.config/nvim/` on first run; the dotfiles repo itself does not vendor the nvim config. Edit and version it independently inside `~/.config/nvim/`.
+The Neovim config is based on [LazyVim](https://www.lazyvim.org/), seeded from [LazyVim/starter](https://github.com/LazyVim/starter). It lives inside this repo at `config/nvim/` and is symlinked into `~/.config/nvim/` by `init.sh` (same pattern as yazi, starship, etc.). `lazy-lock.json` is tracked here so plugin versions reproduce across machines. The previous kickstart fork at [Fenggg0413/kickstart.nvim](https://github.com/Fenggg0413/kickstart.nvim) is kept on GitHub as an archive only.
 
 ## Tmux
 
