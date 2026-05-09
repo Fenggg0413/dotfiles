@@ -152,9 +152,13 @@ if [[ -L "$HOME/.config/neofetch/config.conf" ]] && [[ ! -e "$HOME/.config/neofe
     echo "   Removed stale ~/.config/neofetch symlink"
 fi
 
-# ---- 9. Bootstrap Claude Code config (~/.claude/) ----
-# One-shot copy (not symlink) — repo holds the "factory template",
-# each machine evolves its own ~/.claude/ independently afterwards.
+# ---- 9. Bootstrap / symlink Claude Code config (~/.claude/) ----
+# Two modes:
+#   claude_bootstrap = one-shot copy, never overwritten — for files that mix
+#                      machine-local state with shared template (settings.json,
+#                      statusline-command.sh, themes/).
+#   claude_symlink   = symlink, dotfiles is source of truth — for pure display
+#                      preferences that should sync across machines instantly.
 echo "==> Bootstrapping Claude Code config..."
 claude_bootstrap() {
     local rel="$1"
@@ -172,10 +176,29 @@ claude_bootstrap() {
     echo "   Copied ~/.claude/$rel"
 }
 
+claude_symlink() {
+    local rel="$1"
+    local src="$DOTDIR/config/claude/$rel"
+    local dst="$HOME/.claude/$rel"
+    if [[ ! -e "$src" ]]; then
+        return
+    fi
+    mkdir -p "$(dirname "$dst")"
+    if [[ -L "$dst" ]]; then
+        rm "$dst"
+    elif [[ -e "$dst" ]]; then
+        echo "   Backing up existing $dst → ${dst}.bak"
+        mv "$dst" "${dst}.bak"
+    fi
+    ln -sf "$src" "$dst"
+    echo "   Linked ~/.claude/$rel → $src"
+}
+
 mkdir -p "$HOME/.claude"
 claude_bootstrap "settings.json"
 claude_bootstrap "statusline-command.sh"
 claude_bootstrap "themes"
+claude_symlink "plugins/claude-hud/config.json"
 
 # ---- 10. Create .zshrc.local / .bashrc.local templates if missing ----
 if [[ ! -s "$HOME/.zshrc.local" ]]; then

@@ -1,0 +1,26 @@
+{
+  "display": {
+    "showTools": false,
+    "showAgents": false,
+    "showTodos": true,
+    "showPromptCache": false,
+    "showProject": true,
+    "showEffortLevel": true,
+    "showTokenBreakdown": true,
+    "showDuration": true,
+    "showSessionTokens": true,
+    "showSessionName": true,
+    "showConfigCounts": false,
+    "showSpeed": true,
+    "showUsage": true
+  },
+  "gitStatus": {
+    "enabled": true,
+    "showDirty": true,
+    "showAheadBehind": true,
+    "showFileStats": true
+  },
+  "pathLevels": 3,
+  "lineLayout": "expanded",
+  "showSeparators": false
+}
