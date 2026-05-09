@@ -22,6 +22,7 @@ After that, open a new terminal. The zsh prompt is powered by Starship via `conf
 | File | Purpose |
 |------|---------|
 | `install.sh` | Package installation across package managers (Homebrew, apt, dnf, yum, pacman, apk) |
+| `Brewfile` | macOS package manifest used by `brew bundle install` (taps + leaves + casks) |
 | `init.sh` | Bootstrap: shell change, oh-my-zsh install, zsh plugin clone, oh-my-tmux install, symlink creation |
 | `.zshrc` | Main zsh config (shared + per-platform aliases, fzf, Go proxy, p10k) |
 | `.bashrc` | Bash config for Linux/WSL2 |

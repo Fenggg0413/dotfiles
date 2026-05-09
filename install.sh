@@ -75,15 +75,20 @@ if [[ "$_OS" == "Darwin" ]]; then
         echo '  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'
         exit 1
     fi
-    echo "==> macOS detected — using Homebrew"
+    echo "==> macOS detected — installing from Brewfile"
 
-    # Core (must succeed)
-    brew install tmux zsh fzf curl git neovim
+    DOTDIR_LOCAL="$(cd "$(dirname "$0")" && pwd)"
+    if [[ -f "$DOTDIR_LOCAL/Brewfile" ]]; then
+        # brew bundle reports failures at the end and continues; no need for try_install here
+        brew bundle install --file="$DOTDIR_LOCAL/Brewfile"
+    else
+        echo "Brewfile not found at $DOTDIR_LOCAL/Brewfile — falling back to minimal package list"
+        brew install tmux zsh fzf curl git neovim
+        try_install "brew install" lsd bat fastfetch zoxide starship fd gh yazi
+    fi
 
-    # Optional (best-effort)
-    try_install "brew install" lsd bat fastfetch zoxide starship fd python3 gcc node go rust php git-lfs direnv broot gh yazi
+    # bun is installed via upstream (not tracked in Brewfile) for parity with Linux paths
     install_bun_upstream
-
     report_missing
     exit 0
 fi
