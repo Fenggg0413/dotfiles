@@ -28,7 +28,7 @@ ZSH_THEME=""
 zstyle ':omz:update' mode auto
 
 # Plugins: shared + platform-specific
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting rand-quote cp history z)
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting rand-quote cp history)
 # macOS-only plugin (won't exist on Linux)
 [[ "$_OS" == "Darwin" ]] && plugins+=(macos)
 
@@ -77,7 +77,7 @@ export GOPROXY=https://goproxy.cn
 export GOPRIVATE=git.xxx.com
 
 # fzf
-if command -v fzf &>/dev/null; then
+if command -v fzf &>/dev/null && fzf --zsh >/dev/null 2>&1; then
     eval "$(fzf --zsh)"
 fi
 

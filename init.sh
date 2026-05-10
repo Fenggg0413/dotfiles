@@ -51,11 +51,6 @@ echo "==> Installing zsh plugins..."
 [[ -d "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting" ]] || \
     git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting"
 
-# ---- 4. Install Powerlevel10k ----
-echo "==> Installing Powerlevel10k theme..."
-[[ -d "$ZSH_CUSTOM/themes/powerlevel10k" ]] || \
-    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "$ZSH_CUSTOM/themes/powerlevel10k"
-
 # ---- 5. Create symlinks ----
 echo "==> Creating symlinks..."
 symlink() {

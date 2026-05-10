@@ -11,7 +11,6 @@ marker_copied = { fg = "#1e1e2e", bg = "#89b4fa" }
 marker_cut = { fg = "#1e1e2e", bg = "#f38ba8" }
 tab_active = { fg = "#1e1e2e", bg = "#89b4fa" }
 tab_inactive = { fg = "#6c7086", bg = "#313244" }
-tab_width = 1
 border_symbol = "│"
 border_style = { fg = "#585b70" }
 syntect_theme = "base16-ocean.dark"
