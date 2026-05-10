@@ -6,3 +6,12 @@
 --
 -- Or remove existing autocmds by their group name (which is prefixed with `lazyvim_` for the defaults)
 -- e.g. vim.api.nvim_del_augroup_by_name("lazyvim_wrap_spell")
+
+-- LazyVim turns on `spell` for markdown/gitcommit/text, which flags every CLI
+-- name (tmux, zsh, fzf, …) as a typo. Keep wrap, drop the spell-check.
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "markdown", "gitcommit", "text" },
+  callback = function()
+    vim.opt_local.spell = false
+  end,
+})

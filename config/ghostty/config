@@ -24,7 +24,10 @@ font-codepoint-map = U+25A0-U+25FF=JetBrainsMono Nerd Font Mono
 # --- Theme and Colors ---
 # Dracula — matches my iTerm2 palette
 # theme = Dracula
-theme = TokyoNight
+# theme = Pro Light
+# theme = GitHub
+# theme = TokyoNight
+ theme = TokyoNight Moon
 
 # --- Window and Appearance ---
 background-opacity = 1
@@ -44,6 +47,15 @@ window-theme = auto
 cursor-style = bar
 cursor-style-blink = false
 cursor-opacity = 0.8
+
+# --- Custom Shaders ---
+# Neovide-style liquid cursor smear from sahaj-b/ghostty-cursor-shaders.
+# Path is resolved relative to this config file. Tweak DURATION / TRAIL_SIZE
+# at the top of the .glsl to adjust feel.
+custom-shader = shaders/cursor_warp.glsl
+# `always` keeps the trail animating even when the bar cursor goes hollow
+# on unfocus — otherwise the animation freezes mid-flight.
+custom-shader-animation = always
 
 # --- Mouse ---
 mouse-hide-while-typing = true
