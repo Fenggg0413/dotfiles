@@ -28,7 +28,7 @@ ZSH_THEME=""
 zstyle ':omz:update' mode auto
 
 # Plugins: shared + platform-specific
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting rand-quote cp history)
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting rand-quote cp history colored-man-pages copyfile copypath)
 # macOS-only plugin (won't exist on Linux)
 [[ "$_OS" == "Darwin" ]] && plugins+=(macos)
 
