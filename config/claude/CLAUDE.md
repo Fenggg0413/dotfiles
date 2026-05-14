@@ -14,6 +14,7 @@ Before implementing:
 - If something is unclear, stop. Name what's confusing. Ask.
 
 ## 2. Simplicity First
+
 Minimum code that solves the problem. Nothing speculative.
 
 - No features beyond what was asked.
@@ -22,21 +23,14 @@ Minimum code that solves the problem. Nothing speculative.
 - No error handling for impossible scenarios.
 
 ## 3. Surgical Changes
+
 Touch only what you must. Clean up only your own mess.
 
 ## 4. Skill Discipline
 
-When the user expresses creation intent — "我要实现 / 我想做 / 帮我搭 / 帮我写 X", "let's build X", "add a feature that…", or similar — invoke `Skill(brainstorming)` **before** asking clarifying questions or proposing options.
+When the user expresses creation intent — "我要实现 / 我想做 / 帮我搭 / 帮我写 X", "let's build X", "add a feature that…" — invoke `Skill(brainstorming)` **before** asking clarifying questions or proposing options. Same for other process skills (debugging, TDD, etc.).
 
-The "Simplicity First" and "For trivial tasks, use judgment" clauses above govern **code scope and judgment latitude**. They are **not** a license to skip skill invocation. A skill check is procedural, not speculative work.
-
-Red flags that mean STOP and invoke the skill:
-
-- "This is just a simple recommendation question" — questions about *how to build* still count as creation intent.
-- "AskUserQuestion is enough" — clarifying tools do not substitute for the skill; the skill comes first.
-- "The skill feels heavy here" — that is the exact rationalization the skill warns against.
-
-Applies to all process skills (brainstorming, debugging, TDD, etc.), not only brainstorming.
+The "Simplicity First" and "trivial tasks" clauses govern code scope, not whether to invoke a skill — a skill check is procedural, not speculative work. Rationalizations to reject: "just a simple recommendation question", "AskUserQuestion is enough", "the skill feels heavy here".
 
 ## 5. Background Noisy & Long-Running Work
 
@@ -49,16 +43,9 @@ Run install scripts, builds, downloads, and other log-heavy or slow commands wit
 
 ## 6. Subagents for Exploration & Review
 
-For exploration/investigation tasks and code-review tasks, dispatch a subagent
-instead of working in the main thread. This section is a standing "the user
-asked" — it overrides the default reluctance to spawn agents.
+For exploration/investigation tasks and code-review tasks, dispatch a subagent instead of working in the main thread. This section is a standing "the user asked" — it overrides the default reluctance to spawn agents.
 
-- **Exploration/investigation** — broad searches sweeping many files or
-  directories: use the `Explore` subagent.
+- **Exploration/investigation** — broad searches sweeping many files or directories: use the `Explore` subagent.
 - **Code review** — use a review subagent (or the `requesting-code-review` skill).
-- **Carve-out:** trivial cases stay in the main thread — a known
-  single-file/single-symbol lookup ("where is X defined"), or reviewing a
-  handful of lines. The test is §5's: if the output wouldn't pollute context
-  anyway, don't pay a cold agent's start-up cost.
-- **Why:** the subagent reads the file-dumps / verbose review in *its* context
-  and returns only the conclusion — §5's isolation, taken one step further.
+- **Carve-out:** trivial cases stay in the main thread — a known single-file/single-symbol lookup ("where is X defined"), or reviewing a handful of lines. The test is §5's: if the output wouldn't pollute context anyway, don't pay a cold agent's start-up cost.
+- **Why:** the subagent reads the file-dumps / verbose review in *its* context and returns only the conclusion — §5's isolation, taken one step further.
