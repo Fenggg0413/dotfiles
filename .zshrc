@@ -84,6 +84,18 @@ fi
 # zoxide
 if command -v zoxide &>/dev/null; then
     eval "$(zoxide init zsh)"
+    # oh-my-zsh `z`-plugin style TAB completion: `z <substr><TAB>` lists
+    # matching dirs from the zoxide DB (zoxide's own completion only
+    # completes local subdirs). `zi <substr>` still opens the fzf picker.
+    _z_db_complete() {
+        emulate -L zsh
+        setopt extended_glob
+        local word=${words[CURRENT]}
+        local -a dirs
+        dirs=( ${(f)"$(zoxide query -l 2>/dev/null)"} )
+        compadd -U -- ${(M)dirs:#(#i)*$word*}
+    }
+    compdef _z_db_complete z
 fi
 
 # starship prompt
