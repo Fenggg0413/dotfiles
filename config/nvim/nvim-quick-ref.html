@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEOVIM 速查手册</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --fg: #000000;
+    --accent: #d80027; /* Swiss Red */
+    --gray-light: #f5f5f5;
+    --gray-mid: #e5e5e5;
+    --gray-dark: #666666;
+    --font-sans: "Inter", "PingFang SC", "Microsoft YaHei", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+    --font-mono: "SF Mono", "JetBrains Mono", "Fira Code", monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--font-sans);
+    background: var(--bg);
+    color: var(--fg);
+    line-height: 1.2;
+    padding: 3rem;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Typography */
+  h1 {
+    font-size: 4rem;
+    font-weight: 900;
+    letter-spacing: -0.05em;
+    line-height: 0.9;
+    margin-bottom: 2rem;
+    border-bottom: 8px solid var(--fg);
+    display: inline-block;
+    padding-bottom: 0.5rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    padding-top: 1rem;
+    border-top: 4px solid var(--fg);
+    display: block;
+  }
+
+  h3 {
+    font-size: 0.85rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+  }
+
+  .meta {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 3rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  .meta-item b {
+    color: var(--accent);
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+
+  /* Grid System */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2.5rem 1.5rem;
+    align-items: start;
+  }
+
+  @media (max-width: 1400px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 1000px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) {
+    .grid { grid-template-columns: 1fr; }
+    body { padding: 1.5rem; }
+    h1 { font-size: 2.5rem; }
+  }
+
+  /* Elements */
+  .section {
+    margin-bottom: 1rem;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+  }
+
+  tr {
+    border-bottom: 1px solid var(--gray-mid);
+  }
+
+  tr:last-child {
+    border-bottom: none;
+  }
+
+  td {
+    padding: 0.5rem 0;
+    vertical-align: top;
+  }
+
+  td:first-child {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    padding-right: 1rem;
+    white-space: nowrap;
+  }
+
+  td:last-child {
+    color: var(--gray-dark);
+    text-align: right;
+  }
+
+  kbd {
+    background: var(--gray-light);
+    color: var(--fg);
+    padding: 0.1rem 0.4rem;
+    border-radius: 2px;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 700;
+    display: inline-block;
+  }
+
+  .tag {
+    display: inline-block;
+    width: 1.2rem;
+    height: 1.2rem;
+    line-height: 1.2rem;
+    text-align: center;
+    font-size: 0.7rem;
+    font-weight: 900;
+    margin-left: 2px;
+    border-radius: 2px;
+  }
+
+  .tag-n { background: var(--fg); color: var(--bg); }
+  .tag-v { background: var(--accent); color: var(--bg); }
+  .tag-i { border: 1px solid var(--fg); color: var(--fg); }
+
+  .custom-badge {
+    display: inline-block;
+    background: var(--accent);
+    color: white;
+    font-size: 0.65rem;
+    padding: 1px 4px;
+    font-weight: 800;
+    text-transform: uppercase;
+    vertical-align: middle;
+    margin-left: 4px;
+  }
+
+  .footer {
+    margin-top: 5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--fg);
+    font-size: 0.75rem;
+    color: var(--gray-dark);
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /* Highlights */
+  .highlight-row { background: #fff8f8; }
+</style>
+</head>
+<body>
+
+<h1>NEOVIM</h1>
+
+
+
+<div class="grid">
+  <!-- COLUMN 1: NAVIGATION & FILES -->
+  <div class="section">
+    <h2>01 / 文件</h2>
+
+    <h3>搜索</h3>
+    <table>
+      <tr><td><kbd>SPC</kbd> <kbd>SPC</kbd></td><td>查找文件（项目根）</td></tr>
+      <tr><td><kbd>SPC</kbd> <kbd>ff</kbd></td><td>查找文件（项目根）</td></tr>
+      <tr><td><kbd>SPC</kbd> <kbd>fr</kbd></td><td>最近文件</td></tr>
+      <tr><td><kbd>SPC</kbd> <kbd>fp</kbd></td><td>切换项目</td></tr>
+      <tr><td><kbd>SPC</kbd> <kbd>fc</kbd></td><td>编辑配置</td></tr>
+      <tr><td><kbd>SPC</kbd> <kbd>/</kbd></td><td>全文搜索（项目根）</td></tr>
+    </table>
+
+    <h3 style="margin-top: 1.5rem;">缓冲区</h3>
+    <table>
+      <tr><td><kbd>S-h</kbd> / <kbd>S-l</kbd></td><td>上一个 / 下一个</td></tr>
+      <tr><td><kbd>SPC</kbd> <kbd>bb</kbd></td><td>上次缓冲区</td></tr>
+      <tr><td><kbd>SPC</kbd> <kbd>bd</kbd></td><td>关闭当前</td></tr>
+      <tr><td><kbd>SPC</kbd> <kbd>bo</kbd></td><td>关闭其他</td></tr>
+      <tr><td><kbd>ZZ</kbd></td><td>保存并退出</td></tr>
+      <tr><td><kbd>ZQ</kbd></td><td>不保存强制退出</td></tr>
+    </table>
+
+    <h3 style="margin-top: 1.5rem;">文件浏览器</h3>
+    <table>
+      <tr><td><kbd>SPC</kbd> <kbd>e</kbd></td><td>文件树（项目根）</td></tr>
+      <tr><td><kbd>SPC</kbd> <kbd>E</kbd></td><td>文件树（当前目录）</td></tr>
+    </table>
+  </div>
+
+  <!-- COLUMN 2: EDITING & MOVEMENT -->
+  <div class="section">
+    <h2>02 / 编辑</h2>
+
+    <h3>移动 <span class="custom-badge">自定义</span></h3>
+    <table>
+      <tr class="highlight-row"><td><kbd>C-d</kbd></td><td>向下半屏 + 居中</td></tr>
+      <tr class="highlight-row"><td><kbd>C-u</kbd></td><td>向上半屏 + 居中</td></tr>
+      <tr><td><kbd>A-j</kbd> / <kbd>A-k</kbd></td><td>整行移动 <span class="tag tag-n">N</span><span class="tag tag-v">V</span><span class="tag tag-i">I</span></td></tr>
+    </table>
+
+    <h3 style="margin-top: 1.5rem;">选区与操作</h3>
+    <table>
+      <tr><td><kbd>gc</kbd></td><td>注释切换</td></tr>
+      <tr><td><kbd>gsa</kbd></td><td>添加包裹</td></tr>
+      <tr><td><kbd>gsd</kbd></td><td>删除包裹</td></tr>
+      <tr><td><kbd>gsr</kbd></td><td>替换包裹</td></tr>
+      <tr><td><kbd>></kbd> / <kbd><</kbd></td><td>缩进 <span class="tag tag-v">V</span></td></tr>
+    </table>
+
+    <h3 style="margin-top: 1.5rem;">跳转（Flash）</h3>
+    <table>
+      <tr><td><kbd>s</kbd></td><td>跳转到字符</td></tr>
+      <tr><td><kbd>S</kbd></td><td>跳转到语法节点</td></tr>
+    </table>
+  </div>
+
+  <!-- COLUMN 3: LSP & CODE -->
+  <div class="section">
+    <h2>03 / 代码</h2>
+
+    <h3>LSP 跳转</h3>
+    <table>
+      <tr><td><kbd>gd</kbd></td><td>跳转到定义</td></tr>
+      <tr><td><kbd>gr</kbd></td><td>引用列表</td></tr>
+      <tr><td><kbd>gI</kbd></td><td>实现位置</td></tr>
+      <tr><td><kbd>gy</kbd></td><td>类型定义</td></tr>
+      <tr><td><kbd>K</kbd></td><td>悬浮文档</td></tr>
+    </table>
+
+    <h3 style="margin-top: 1.5rem;">LSP 重构</h3>
+    <table>
+      <tr><td><kbd>SPC</kbd> <kbd>ca</kbd></td><td>代码操作</td></tr>
+      <tr><td><kbd>SPC</kbd> <kbd>cr</kbd></td><td>重命名符号</td></tr>
+      <tr><td><kbd>SPC</kbd> <kbd>cf</kbd></td><td>格式化代码</td></tr>
+    </table>
+
+    <h3 style="margin-top: 1.5rem;">诊断</h3>
+    <table>
+      <tr><td><kbd>]d</kbd> / <kbd>[d</kbd></td><td>下一个 / 上一个</td></tr>
+      <tr><td><kbd>SPC</kbd> <kbd>xx</kbd></td><td>Trouble 问题面板</td></tr>
+    </table>
+  </div>
+
+  <!-- COLUMN 4: SYSTEM & MISC -->
+  <div class="section">
+    <h2>04 / 系统</h2>
+
+    <h3>Git</h3>
+    <table>
+      <tr><td><kbd>SPC</kbd> <kbd>gg</kbd></td><td>LazyGit（项目根）</td></tr>
+      <tr><td><kbd>SPC</kbd> <kbd>gB</kbd></td><td>在浏览器中打开</td></tr>
+      <tr><td><kbd>SPC</kbd> <kbd>gl</kbd></td><td>Git 日志</td></tr>
+    </table>
+
+    <h3 style="margin-top: 1.5rem;">界面开关</h3>
+    <table>
+      <tr><td><kbd>SPC</kbd> <kbd>uf</kbd></td><td>自动格式化</td></tr>
+      <tr><td><kbd>SPC</kbd> <kbd>uh</kbd></td><td>内联提示</td></tr>
+      <tr><td><kbd>SPC</kbd> <kbd>uL</kbd></td><td>相对行号</td></tr>
+    </table>
+
+    <h3 style="margin-top: 1.5rem;">终端</h3>
+    <table>
+      <tr><td><kbd>C-`</kbd> 或 <kbd>C-/</kbd></td><td>切换浮窗终端</td></tr>
+      <tr><td><kbd>SPC</kbd> <kbd>ft</kbd></td><td>浮动终端</td></tr>
+    </table>
+
+    <h3 style="margin-top: 1.5rem;">管理器</h3>
+    <table>
+      <tr><td><kbd>SPC</kbd> <kbd>l</kbd></td><td>Lazy 插件管理</td></tr>
+      <tr><td><kbd>SPC</kbd> <kbd>cm</kbd></td><td>Mason 工具管理</td></tr>
+    </table>
+  </div>
+</div>
+
+</body>
+</html>
